@@ -1,0 +1,27 @@
+{
+  "name": "sharp-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "bin": {
+    "sharp-tools": "./index.js"
+  },
+  "files": [
+    "*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/argparse": "^2.0.10",
+    "@types/sharp": "^0.31.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "sharp": "^0.31.3"
+  }
+}
