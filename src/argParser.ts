@@ -20,7 +20,6 @@ const parseArgs = () => {
     parser.add_argument('-v', '--version', { help: 'Output version' });
     return parser.parse_args();
 }
-
 const validateArgs = (args: Namespace) => {
   console.log({...args});
     if (!args.file) {
