@@ -1,11 +1,12 @@
 import sharp from "sharp";
 import { Namespace } from "argparse";
 
-export default (args: Namespace) => {
+const processImages = async (args: Namespace) => {
     const {
       file,
       output,
       ext,
+      sizes,
       width,
       height,
       quality,
@@ -18,20 +19,35 @@ export default (args: Namespace) => {
     } = args;
 
     const filename = file.split("/").pop().split(".")[0];
-
-    const resize = (size: number) =>
-      sharp(file)
-        .resize(size)
-        .toFile(`${output}/${filename}-${size}.${ext}`);
-
-    // const resize = (size: number) => sharp(`./image-originals/galaxy.jpg`)
-    //   .resize(size)
-    //   .toFile(`./image-processed/galaxy-${size}.jpg`);
+    const size_arr = sizes.split(",").map((s: string) => parseInt(s));
+    const extensions = ext.split(",");
     
+    const metadata = await sharp(file).metadata();
+    const originalWidth = metadata.width;
+    const resize = async (size: number) => {
+      extensions.map((ext: string) =>
+      {
+        if(originalWidth && size <= originalWidth) {
+          sharp(file).resize(size)
+          .toFile(`${output}/${filename}-${size}.${ext}`);
+        }
+      })
+      
+      // const resize = (size: number) => sharp(`./image-originals/galaxy.jpg`)
+      //   .resize(size)
+      //   .toFile(`./image-processed/galaxy-${size}.jpg`);
+    }
     Promise
-      .all([1440, 1080, 720, 480].map(resize))
+      .all(size_arr.map(resize))
       .then(() => {
         console.log('complete');
       });
+
+      extensions.map((ext: string) => {
+        sharp(file).resize(originalWidth)
+        .toFile(`${output}/${filename}.${ext}`);
+      })
 }
+
+export { processImages}
 

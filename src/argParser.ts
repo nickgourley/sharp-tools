@@ -10,6 +10,7 @@ const parseArgs = () => {
     parser.add_argument('-d', '--dir', { help: 'Process all files in directory' });
     parser.add_argument('-e', '--ext', { help: 'Output format' });
     parser.add_argument('-w', '--width', { help: 'Output width' });
+    parser.add_argument('-s', '--sizes', { help: 'Sizes' });
     // parser.add_argument('-h', '--height', { help: 'Output height' });
     parser.add_argument('-q', '--quality', { help: 'Output quality' });
     parser.add_argument('-p', '--progressive', { help: 'Output progressive' });
@@ -32,6 +33,10 @@ const validateArgs = (args: Namespace) => {
     }
     if (!args.ext) {
         console.log('Please provide an output format.');
+        process.exit(1);
+    }
+    if(!args.sizes) {
+        console.log('Please provide a size.');
         process.exit(1);
     }
     // if (!args.width) {
