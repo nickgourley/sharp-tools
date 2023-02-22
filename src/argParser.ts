@@ -22,7 +22,6 @@ const parseArgs = () => {
     return parser.parse_args();
 }
 const validateArgs = (args: Namespace) => {
-  console.log({...args});
     if (!args.file) {
         console.log('Please provide a source file or directory.');
         process.exit(1);
