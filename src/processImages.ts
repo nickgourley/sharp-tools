@@ -34,7 +34,6 @@ const processImages = async (args: Namespace) => {
 
     files.map(async (fileItem: string) => {
       {
-        console.log(fileItem)
         const filename = fileItem.split("/").pop().split(".")[0];
         const size_arr = sizes.split(",").map((s: string) => parseInt(s));
         const extensions = ext.split(",");
@@ -50,7 +49,7 @@ const processImages = async (args: Namespace) => {
             }
           })
         }
-        Promise.all(size_arr.map(resize)).then(() => {
+        await Promise.all(size_arr.map(resize)).then(() => {
             console.log('complete');
         });
   
